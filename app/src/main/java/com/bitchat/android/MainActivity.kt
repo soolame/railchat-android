@@ -39,6 +39,7 @@ import com.bitchat.android.onboarding.OnboardingCoordinator
 import com.bitchat.android.onboarding.OnboardingState
 import com.bitchat.android.onboarding.PermissionExplanationScreen
 import com.bitchat.android.onboarding.PermissionManager
+import com.bitchat.android.onboarding.TrainContextEntryScreen
 import com.bitchat.android.ui.ChatScreen
 import com.bitchat.android.ui.ChatViewModel
 import com.bitchat.android.ui.OrientationAwareActivity
@@ -56,6 +57,7 @@ class MainActivity : OrientationAwareActivity() {
     private lateinit var bluetoothStatusManager: BluetoothStatusManager
     private lateinit var locationStatusManager: LocationStatusManager
     private lateinit var batteryOptimizationManager: BatteryOptimizationManager
+    private val trainContextStore by lazy { com.hop.rail.train.TrainContextStore(applicationContext) }
     
     // Core mesh service - provided by the foreground service holder
     private lateinit var meshService: BluetoothMeshService
@@ -308,6 +310,26 @@ class MainActivity : OrientationAwareActivity() {
                     },
                     onSkip = {
                         onboardingCoordinator.skipBackgroundLocation()
+                    }
+                )
+            }
+
+            OnboardingState.TRAIN_CONTEXT_ENTRY -> {
+                TrainContextEntryScreen(
+                    modifier = modifier,
+                    onSubmit = { trainNumber, coachId ->
+                        lifecycleScope.launch {
+                            trainContextStore.update(
+                                trainNumber = trainNumber,
+                                coachId = coachId,
+                                boardingTimestamp = System.currentTimeMillis()
+                            )
+                        }
+                        mainViewModel.updateOnboardingState(OnboardingState.COMPLETE)
+                    },
+                    onSkip = {
+                        lifecycleScope.launch { trainContextStore.skipOnboarding() }
+                        mainViewModel.updateOnboardingState(OnboardingState.COMPLETE)
                     }
                 )
             }
@@ -709,7 +731,12 @@ class MainActivity : OrientationAwareActivity() {
                 // Small delay to ensure mesh service is fully initialized
                 delay(500)
                 Log.i("MainActivity", "App initialization complete")
-                mainViewModel.updateOnboardingState(OnboardingState.COMPLETE)
+                val nextState = if (trainContextStore.hasCompletedOnboarding()) {
+                    OnboardingState.COMPLETE
+                } else {
+                    OnboardingState.TRAIN_CONTEXT_ENTRY
+                }
+                mainViewModel.updateOnboardingState(nextState)
             } catch (e: Exception) {
                 Log.e("MainActivity", "Failed to initialize app", e)
                 handleOnboardingFailed("Failed to initialize the app: ${e.message}")

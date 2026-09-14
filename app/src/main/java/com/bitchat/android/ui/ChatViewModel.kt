@@ -140,6 +140,7 @@ class ChatViewModel(
     private val conversationListPreferences =
         com.bitchat.android.services.ConversationListPreferences.getInstance(getApplication())
     private val messageManager = MessageManager(state)
+    private val trainContextStore = com.hop.rail.train.TrainContextStore(application.applicationContext)
     private val channelManager = ChannelManager(
         state,
         messageManager,
@@ -424,6 +425,17 @@ class ChatViewModel(
     }
 
     init {
+        viewModelScope.launch {
+            try {
+                trainContextStore.trainContext.collect { context ->
+                    val rooms = setOfNotNull(
+                        com.hop.rail.train.RoomResolver.trainRoom(context),
+                        com.hop.rail.train.RoomResolver.coachRoom(context)
+                    )
+                    channelManager.setSystemChannels(rooms)
+                }
+            } catch (_: Exception) { }
+        }
         observeConversationPresenceWithDisconnectGrace()
         // Note: Mesh service delegate is now set by MainActivity
         loadAndInitialize()

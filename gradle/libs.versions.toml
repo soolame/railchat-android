@@ -57,6 +57,9 @@ nanohttpd = "2.3.1"
 # Security
 security-crypto = "1.1.0"
 
+# Local storage
+datastore-preferences = "1.1.1"
+
 # QR
 zxing-core = "3.5.4"
 
@@ -137,6 +140,9 @@ nanohttpd = { module = "org.nanohttpd:nanohttpd", version.ref = "nanohttpd" }
 
 # Security
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "security-crypto" }
+
+# Local storage
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore-preferences" }
 
 # QR
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }

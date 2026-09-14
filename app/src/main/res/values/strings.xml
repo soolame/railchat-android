@@ -5,7 +5,7 @@
     <string name="cashu_copy_token">Copy token</string>
     <string name="cashu_redeem_wallet">Redeem in wallet</string>
     <string name="cashu_redeem_web">Redeem on web</string>
-    <string name="app_name">bitchat</string>
+    <string name="app_name">RailChat</string>
     <string name="permission_bluetooth_rationale">Bluetooth permission is required for peer-to-peer messaging without internet.</string>
     <string name="permission_location_rationale">Location permission is required to discover nearby devices via Bluetooth.</string>
     <string name="permission_notification_rationale">Notification permission is required to alert you of new messages.</string>
@@ -152,7 +152,7 @@
   <string name="cd_pick_file">Pick file</string>
 
   <!-- About sheet -->
-  <string name="about_tagline">The sidegroup chat</string>
+  <string name="about_tagline">The offline train chat</string>
 
   <!-- About sheet: tabs -->
   <string name="about_tab_info">Info</string>
@@ -542,6 +542,12 @@
   <string name="location_services_unavailable">Location Services Unavailable</string>
   <string name="location_unavailable_explanation">Location services are not available on this device. This is unusual as location services are standard on Android devices.\n\nbitchat needs location services for Bluetooth scanning to work properly (Android requirement). Without this, the app cannot discover nearby users.</string>
   <string name="checking_location_services">Checking location services...</string>
+  <string name="train_context_title" tools:ignore="MissingTranslation">Which train are you on?</string>
+  <string name="train_context_subtitle" tools:ignore="MissingTranslation">Optional — lets you chat with your train and coach</string>
+  <string name="train_context_train_number_label" tools:ignore="MissingTranslation">Train number</string>
+  <string name="train_context_coach_id_label" tools:ignore="MissingTranslation">Coach (e.g. S7, B2)</string>
+  <string name="train_context_continue" tools:ignore="MissingTranslation">Continue</string>
+  <string name="train_context_skip" tools:ignore="MissingTranslation">Skip</string>
   <string name="bluetooth_required">Bluetooth Required</string>
   <string name="bluetooth_needs_for">bitchat needs Bluetooth to:</string>
   <string name="bluetooth_needs_bullets">• Discover nearby users\n• Create mesh network connections\n• Send and receive messages\n• Work without internet or servers</string>

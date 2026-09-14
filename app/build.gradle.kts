@@ -27,7 +27,7 @@ android {
     buildToolsVersion = libs.versions.buildTools.get()
 
     defaultConfig {
-        applicationId = "com.bitchat.droid"
+        applicationId = "com.hop.rail"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 39
@@ -186,7 +186,10 @@ dependencies {
 
     // Security preferences
     implementation(libs.androidx.security.crypto)
-    
+
+    // Local storage (train context)
+    implementation(libs.androidx.datastore.preferences)
+
     // EXIF orientation handling for images
     implementation(libs.androidx.exifinterface)
     

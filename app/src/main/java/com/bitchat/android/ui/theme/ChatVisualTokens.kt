@@ -40,10 +40,10 @@ internal object ChatVisualTokens {
     // MARK: - Bubble geometry (ChatUiMode.Bubbles)
 
     /** Rounded corner on the three "free" corners of a message bubble. */
-    val BubbleCornerRadius: Dp = 16.dp
+    val BubbleCornerRadius: Dp = 20.dp
 
     /** Tightened corner on the speaker's own side, giving the bubble a subtle tail. */
-    val BubbleTailRadius: Dp = 4.dp
+    val BubbleTailRadius: Dp = 6.dp
 
     /** Padding inside a bubble, around the text. */
     val BubblePaddingHorizontal: Dp = 12.dp
@@ -56,10 +56,10 @@ internal object ChatVisualTokens {
      * Author-colour wash inside a bubble. Matches the mention-chip treatment so a tinted
      * bubble stays legible on both the near-black and near-white chat surfaces.
      */
-    const val BubbleBackgroundAlpha: Float = 0.18f
+    const val BubbleBackgroundAlpha: Float = 0.24f
 
     /** Author-colour hairline around a bubble; stronger than the fill so the shape reads. */
-    const val BubbleBorderAlpha: Float = 0.38f
+    const val BubbleBorderAlpha: Float = 0.50f
 
     const val SenderSuffixAlpha: Float = 0.60f
     const val HighlightAlpha: Float = 0.20f

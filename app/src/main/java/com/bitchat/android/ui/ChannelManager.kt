@@ -113,13 +113,36 @@ class ChannelManager(
         state.setSelectedPrivateChatPeer(null)
         state.setSelectedLocationChannel(ChannelID.Mesh)
         onSwitchToMeshLocation()
-        
+
         // Clear unread count
         channel?.let { ch ->
             messageManager.clearChannelUnreadCount(ch)
         }
     }
-    
+
+    // MARK: - System Rooms (train/coach, derived from TrainContext)
+
+    private var systemChannels: Set<String> = emptySet()
+
+    /**
+     * Replaces the set of derived (train/coach) rooms in [ChatState.joinedChannels].
+     * Unlike [joinChannel], this does not "#"-prefix the tag and does not persist
+     * via [saveChannelData] — these rooms are recomputed from TrainContext on every
+     * app start / context change, not stored as user-created channels.
+     */
+    fun setSystemChannels(channels: Set<String>) {
+        if (channels == systemChannels) return
+        val stale = systemChannels - channels
+        val updated = state.getJoinedChannelsValue().toMutableSet()
+        updated.removeAll(stale)
+        updated.addAll(channels)
+        state.setJoinedChannels(updated)
+        if (state.getCurrentChannelValue() in stale) {
+            switchToChannel(null)
+        }
+        systemChannels = channels
+    }
+
     // MARK: - Channel Password and Encryption
     
     private fun verifyChannelPassword(channel: String, password: String): Boolean {

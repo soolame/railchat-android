@@ -55,7 +55,7 @@ val DarkBitchatPalette = BitchatPalette(
     inputSurfaceFocused = Color(0xFF151515),
     inputButton = Color(0xFF1E1E1E),
     textTertiary = Color(0xFF6B776B),
-    accentOrange = Color(0xFFFF9F0A),
+    accentOrange = Color(0xFFFFB300),
     accentPurple = Color(0xFFBF5AF2),
     peerColors = PeerColorStyle.Dark,
 )
@@ -67,7 +67,7 @@ val LightBitchatPalette = BitchatPalette(
     inputSurfaceFocused = Color(0xFFF2F2F2),
     inputButton = Color(0xFFE8E8E8),
     textTertiary = Color(0xFF757F75),
-    accentOrange = Color(0xFFFF9500),
+    accentOrange = Color(0xFFB36B00),
     accentPurple = Color(0xFFAF52DE),
     peerColors = PeerColorStyle.Light,
 )

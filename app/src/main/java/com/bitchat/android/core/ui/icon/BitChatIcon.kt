@@ -14,32 +14,23 @@ val BitChatIcon: ImageVector
             name = "BitChatIcon",
             defaultWidth = 24.dp,
             defaultHeight = 24.dp,
-            viewportWidth = 8f,
+            viewportWidth = 10f,
             viewportHeight = 8f,
         ).apply {
+            // Blocky train-coach silhouette: a body block riding on two wheel tabs.
             path(fill = SolidColor(Color.Black)) {
-                moveTo(2f, 0f)
-                lineTo(6f, 0f)
-                lineTo(6f, 1f)
-                lineTo(7f, 1f)
-                lineTo(7f, 2f)
-                lineTo(8f, 2f)
-                lineTo(8f, 5f)
-                lineTo(7f, 5f)
-                lineTo(7f, 6f)
-                lineTo(6f, 6f)
+                moveTo(1f, 0f)
+                lineTo(9f, 0f)
+                lineTo(9f, 6f)
+                lineTo(8f, 6f)
+                lineTo(8f, 8f)
                 lineTo(6f, 8f)
-                lineTo(5f, 8f)
-                lineTo(5f, 7f)
-                lineTo(3f, 7f)
-                lineTo(3f, 6f)
+                lineTo(6f, 6f)
+                lineTo(4f, 6f)
+                lineTo(4f, 8f)
+                lineTo(2f, 8f)
+                lineTo(2f, 6f)
                 lineTo(1f, 6f)
-                lineTo(1f, 5f)
-                lineTo(0f, 5f)
-                lineTo(0f, 2f)
-                lineTo(1f, 2f)
-                lineTo(1f, 1f)
-                lineTo(2f, 1f)
                 close()
             }
         }.build().also { _BitChatIcon = it }
