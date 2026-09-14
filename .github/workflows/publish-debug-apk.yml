@@ -1,0 +1,51 @@
+name: Publish debug APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  SETUP_JAVA_VERSION: 21.0.11+10.0.LTS
+
+jobs:
+  publish:
+    name: Build and publish debug APK
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up pinned JDK
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+        with:
+          distribution: temurin
+          java-version: ${{ env.SETUP_JAVA_VERSION }}
+
+      - name: Set up and validate Gradle
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+
+      - name: Build debug APKs
+        run: ./gradlew assembleDebug
+
+      - name: Publish to the "latest-debug" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          NOTES="Automatic debug build of $(git rev-parse --short HEAD), from the latest push to main.
+
+          Not signed for release and not on Google Play — you will need to allow \"install from unknown sources\" to install it.
+          Pick the APK matching your phone's CPU (arm64-v8a covers almost all modern Android phones), or grab app-universal-debug.apk if you are not sure."
+
+          if ! gh release view latest-debug >/dev/null 2>&1; then
+            gh release create latest-debug --title "Latest debug build" --notes "$NOTES" --prerelease
+          else
+            gh release edit latest-debug --notes "$NOTES"
+          fi
+
+          gh release upload latest-debug app/build/outputs/apk/debug/*.apk --clobber
